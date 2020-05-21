@@ -1,19 +1,25 @@
 {
-  "name": "rollup-starter",
+  "name": "jump",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "rollup -cw",
+    "serve": "serve .",
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^8.0.0",
     "@rollup/plugin-typescript": "^4.1.2",
     "rollup": "^2.10.5",
     "tslib": "^2.0.0",
     "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "serve": "^11.3.0",
+    "three": "^0.116.1"
   }
 }

@@ -1,3 +1,5 @@
-import logger from './logger';
+import Jump from './game';
 
-logger('Hello world');
+const game = new Jump();
+
+game.restart();
