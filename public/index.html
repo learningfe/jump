@@ -5,9 +5,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rollup Starter</title>
+  <style>
+    .power {
+      border-radius: 5px;
+      width: 512px;
+      height: 10px;
+      line-height: 0;
+      font-size: 0;
+    }
+    .bar {
+      height: 100%;
+      width: 0;
+      max-width: 100%;;
+      background: #e74661;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="power">
+    <div class="bar" id="progress"></div>
+  </div>
+  <script>
+    // fix popmotion bug
+    window.process = window.process || {};
+    window.process.env = window.process.env || {};
+  </script>
   <script type="module" src="../dist/bundle.esm.js"></script>
 </body>
 

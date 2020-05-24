@@ -1,8 +1,12 @@
 {
   "name": "jump",
   "version": "1.0.0",
-  "description": "",
+  "description": "A game",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/husky520/jump.git"
+  },
   "scripts": {
     "start": "rollup -cw",
     "serve": "serve .",
@@ -19,6 +23,7 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "popmotion": "^8.7.3",
     "serve": "^11.3.0",
     "three": "^0.116.1"
   }
