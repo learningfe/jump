@@ -1,18 +1,20 @@
 import * as THREE from 'three';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { tween, ColdSubscription, easing } from 'popmotion';
+
+import { GameScene } from './scene';
+import { GameRenderer } from './renderer';
 
 export enum Animation {
   MOVE_PLAYER = 1001,
   MOVE_CAMERA = 1002,
 }
 
-export default class Jump {
+export default class Game {
 
-  private renderer: THREE.WebGLRenderer;
+  private scene: GameScene;
+
+  private renderer: GameRenderer;
   private camera: THREE.PerspectiveCamera;
-  private scene: THREE.Scene;
-  // private controls: OrbitControls;
 
   private player: THREE.Mesh;
 
@@ -20,55 +22,18 @@ export default class Jump {
 
   private animations = new Map<Animation, ColdSubscription>();
 
+  constructor() {
+    this.scene = new GameScene();
+    this.renderer = new GameRenderer();
+  }
+
   public restart() {
 
-    window.THREE = THREE;
-    
-    this.scene = new THREE.Scene();
-    this.renderer = new THREE.WebGLRenderer();
-    this.camera = new THREE.PerspectiveCamera(60, 1, 1, 1000);
+    this.camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
 
-    // set renderer
-    this.renderer.setSize(1024, 1024);
-    
-    // add dom
-    document.body.appendChild(this.renderer.domElement);
-    this.renderer.domElement.style.width = 512 + 'px';
-    this.renderer.domElement.style.height = 512 + 'px';
-
-    // set background
-    this.scene.background = new THREE.Color(0x999999);
-    
     // set camrera
     this.camera.position.set(-1, 1, -1);
     this.camera.lookAt(0, 0, 0);
-
-    // create light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    this.scene.add(ambientLight);
-
-    const directionLight = new THREE.DirectionalLight(0xffffff);
-    directionLight.position.set(1, 2, 3);
-    this.scene.add(directionLight);
-
-    // create helper
-    const gridHelper = new THREE.GridHelper(1000, 100);
-    this.scene.add(gridHelper);
-
-    const axesHelper = new THREE.AxesHelper(1000);
-    this.scene.add(axesHelper);
-  
-    // create ground
-    const ground = new THREE.Mesh(
-      new THREE.PlaneGeometry(1000, 1000),
-      new THREE.MeshStandardMaterial({ color: 0xcccccc, side: THREE.DoubleSide })
-    );
-    ground.rotateX(- Math.PI / 2);
-    ground.position.setY(-0.15);
-    this.scene.add(ground);
-
-    // controls
-    // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     // jumper
     this.player = new THREE.Mesh(
@@ -145,8 +110,9 @@ export default class Jump {
       
     };
 
-    this.renderer.domElement.addEventListener('touchstart', () => {
+    this.renderer.domElement.addEventListener('touchstart', (e) => {
       onStart();
+      e.preventDefault();
       this.renderer.domElement.addEventListener('touchend', onFinish);
     });
     this.renderer.domElement.addEventListener('mousedown', () => {

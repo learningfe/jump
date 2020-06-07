@@ -1,5 +1,5 @@
-import Jump from './game';
+import Game from './game';
 
-const game = new Jump();
+const game = new Game();
 
 game.restart();
